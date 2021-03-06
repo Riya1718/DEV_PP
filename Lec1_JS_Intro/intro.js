@@ -27,3 +27,6 @@ if(true){
     console.log(n);
 }
 console.log(m);
+
+const pi=3.14;
+console.log(pi);
