@@ -33,10 +33,11 @@ let e; // takes up undefined
 // console.log(e);
 
 if (true) {
-  // let f = "I am inside if block !!!";
-  // console.log(f);
-  // console.log(a);
-  // a = 20;
+  let f = "I am inside if block !!!";
+   console.log(f);
+   console.log(a);
+   a = 20;
+   console.log(a);
 }
 
 // Const => Constant
@@ -123,6 +124,6 @@ for( let key in data ){
     console.log(key);
 }
 
-for(let i=0 ; i<100 ; i++){
-    console.log(i);
+for(let i=0;i<100;i++){
+  console.log(i);
 }
