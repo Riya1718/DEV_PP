@@ -10,7 +10,7 @@
 // Javascript => Number(int , double , float , big int , long) , Boolean(true , false)
 //               String ('a' , "kajsbfjkasf") , undefined , Object ()
 
-// java , cpp => variables
+// java  , cpp => variables
 
 // Datatype VariableName = Value;
 // int a = 10;
