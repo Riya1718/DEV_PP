@@ -4,7 +4,7 @@ let extensions = require("./util");
 let folderPath = "./Downloads";
 let extFolderPath;
 
-function checkFolder(extension) {
+function checkFolder(extension , folderPath) {
   // check if extension is matching with any folderName
   // .jpg
   // "./Downloads"
@@ -20,7 +20,7 @@ function checkFolder(extension) {
   return fs.existsSync(extFolderPath);
 }
 
-function moveFile(fileName) {
+function moveFile(fileName, folderPath) {
   // copy file
   let sourceFilePath = `${folderPath}/${fileName}`; // "./Downloads/abc.txt"
   let destinationFilePath = `${extFolderPath}/${fileName}`; // "./Downloads/Documents/abc.txt"
@@ -39,17 +39,24 @@ function sortFolder(folderPath) {
   let content = fs.readdirSync(folderPath);
   console.log(content);
   for (let i = 0; i < content.length; i++) {
-    // get extension of each file
+     // get extension of each file "./Downloads/Misc"
+     let isDirectory = fs.lstatSync(`${folderPath}/${content[i]}`).isDirectory();
+     if(isDirectory){
+       console.log("It is a folder");
+       sortFolder(`${folderPath}/${content[i]}`); "./Downloads/Audio"
+     }
+    else{
     let extensionName = path.extname(content[i]);
     console.log(extensionName);
-    let extensionFolderExist = checkFolder(extensionName);
+    let extensionFolderExist = checkFolder(extensionName,folderPath);
     if (extensionFolderExist) {
-      moveFile(content[i]);
+      moveFile(content[i],folderPath);
     } else {
       createFolder();
-      moveFile(content[i]);
+      moveFile(content[i],folderPath);
     }
   }
+ }
 }
 
 sortFolder(folderPath);
