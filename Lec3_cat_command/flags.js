@@ -7,46 +7,48 @@ let f1KaData = fs.readFileSync("./f3.txt")+"";
 let data=f1KaData.split("\r\n");
 console.log(data);
 let removedSpaces = [];
-let emptyPushed = false;
+
 function removeLargeSpaces(data){
-    for(let i=0 ; i<data.length ; i++){
-        if( data[i] == '' && !emptyPushed ){
+    let emptyPushed=false;
+    for(let i=0;i<data.length;i++){
+        if(data[i]=='' && !emptyPushed){
             removedSpaces.push(data[i]);
-            emptyPushed = true;
+            emptyPushed=true;
         }
         else if(data[i] != ''){
             removedSpaces.push(data[i]);
         }
     }
+    console.log(removedSpaces);
+    let joinedString=removedSpaces.join("\n");
+    console.log(joinedString);
 }
 removeLargeSpaces(data);
-let joinedString = removedSpaces.join("\n");
-console.log(joinedString);
 
 
-// -b => add line numbers 
-let count = 1;
+// -b => add line numbers to non empty lines
 function addLineNumberToNonEmptyLines(data){
-    for(let i=0 ; i<data.length ;i++){
-        if(data[i] != ''){
-            data[i] = `${count}. ${data[i]}`;
-            count++;
-        }
+    let count=1;
+    for(let i=0;i<data.length;i++){
+    if(data[i] != ''){
+        data[i]=`${count}.${data[i]}`;
+        count++;
     }
-    let addedLineNumber = data.join("\n");
-    console.log(addedLineNumber);
+  }
+  console.log(data);
+  let addedLineNumber=data.join("\n");
+  console.log(addedLineNumber);
 }
-
 addLineNumberToNonEmptyLines(data);
 
 
-
-// -n => add count to all lines
+// -n => add line numbers to each line
 function addLineNumberToAllLines(data){
-    for(let i=1 ; i<data.length+1 ; i++){
-        data[i-1] = `${i}. ${data[i-1]}`;
+    for(let i=1;i<data.length+1;i++){
+        data[i-1]=`${i}.${data[i-1]}`;
     }
-    let addedLineNumber = data.join("\n");
+    console.log(data);
+    let addedLineNumber=data.join("\n");
     console.log(addedLineNumber);
 }
 addLineNumberToAllLines(data);
