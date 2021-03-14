@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+//shebang command  
 
 let content = process.argv.slice(2);
 let fs = require("fs");
