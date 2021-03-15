@@ -9,7 +9,7 @@ function getMatch(link){
 
 // request("https://www.espncricinfo.com/series/ipl-2020-21-1210595/delhi-capitals-vs-mumbai-indians-final-1237181/full-scorecard" , cb);
 
-function cb(error , response , data){
+function cb(error,response,data){
     parseData(data);
 }
 
@@ -19,7 +19,7 @@ function parseData(html){
     let bothInnings = ch('.match-scorecard-page .Collapsible');
     // fs.writeFileSync("./match.html" , bothInnings+"");
     for(let i=0 ; i<bothInnings.length ; i++){
-        let inning = ch(bothInnings[i+""]);
+        let inning = ch(bothInnings[i]);
         let teamName = inning.find("h5").text();
         teamName = teamName.split("INNINGS")[0].trim(); 
         // ["Delhi Capitals " , " (20akjsbfkja)"   ];
@@ -114,8 +114,6 @@ function processBatsman(teamName , batsmanName , runs , balls , fours , sixes , 
         createBatsmanFile(teamName , batsmanName , runs , balls , fours , sixes , strikeRate);
     }
 }
-
-
 
 
 module.exports = getMatch;

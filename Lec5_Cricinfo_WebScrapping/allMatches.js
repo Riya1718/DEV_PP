@@ -17,6 +17,7 @@ function parseData(html){
         let aTag = allATags[i+""];
         let link = ch(aTag).attr("href");
         let completeLink = "https://www.espncricinfo.com"+link;
+        //console.log(completeLink);
         getMatch(completeLink);
     }
 }
