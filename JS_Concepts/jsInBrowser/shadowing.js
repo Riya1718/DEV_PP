@@ -10,9 +10,9 @@
 // let a = 20;
 // console.log(a);
 
-let a = 10;
+var a = 10;
 function callMe(){
-    var a = 20;
+    let a = 20;
     console.log(a);
 }
 callMe();
