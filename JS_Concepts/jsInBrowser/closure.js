@@ -13,4 +13,4 @@ function sayHi(){
 }
 
 var sayHello = sayHi();
-sayHello();vv
+sayHello();
