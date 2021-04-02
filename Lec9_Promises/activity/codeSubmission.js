@@ -78,10 +78,17 @@ browserOpenPromise.then(function(browser){
         return "https://www.hackerrank.com"+link;
     });
     let oneQuesSolvePromise=solveQuestion(completeLinks[0]);
+
+    for(let i=1;i<oneQuesSolvePromise.length;i++){
+        oneQuesSolvePromise=oneQuesSolvePromise.then(function(){
+            let nextQuesSolvePromise=solveQuestion(completeLinks[i]);
+            return nextQuesSolvePromise;
+        })
+    }
     return oneQuesSolvePromise;
 })
 .then(function(){
-    console.log("one ques solved successfully");
+    console.log("All ques solved successfully");
 })
 .catch(function(error){
     console.log(error);
@@ -209,6 +216,31 @@ function pasteCode(){
         })
     })
 }
+
+function handleLockBtn(){
+    return new Promise(function(resolve,reject){
+        let waitPromise = tab.waitForSelector('.ui-btn.ui-btn-normal.ui-btn-primary.ui-btn-styled' , {visible:true , timeout:5000});
+        waitPromise.then(function(){
+            let lockBtnPromise=tab.$('.ui-btn.ui-btn-normal.ui-btn-primary.ui-btn-styled');
+            return lockBtnPromise;
+        })
+        .then(function(lockBtn){
+            let lockBtnClickPromise=lockBtn.click();
+            return lockBtnClickPromise;
+        })
+        .then(function(){
+            // clicked on lock btn
+            // lock btn found
+            console.log("lock btn found !!!");
+            resolve();
+          })
+          .catch(function(error){
+              //lock btn not found
+              console.log("lock btn not found !!!");
+              resolve();
+          })
+    })
+}
 function solveQuestion(qLink){
     return new Promise(function(resolve,reject){
       let gotoPromise=tab.goto(qLink);
@@ -217,8 +249,8 @@ function solveQuestion(qLink){
          return waitAndClickPromise;
       })
       .then(function(){
-          let waitAndClickPromise=waitAndClick('.ui-btn.ui-btn-normal.ui-btn-primary.ui-btn-styled .ui-text');
-          return waitAndClick;
+          let lockBtnPromise=handleLockBtn();
+          return lockBtnPromise;
       })
       .then(function () {
         // this function will get code of c++ and set in gCode variable
