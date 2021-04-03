@@ -6,6 +6,8 @@
 
 // sync functions => they block stack
 
+const fs=require("fs");
+
 function sayHello(){
     console.log("fun say Hii !!!");
 }
@@ -16,6 +18,7 @@ sayHello();
 
 // async functions => they dont block stack , they are handled by node APIS
 async function callMe(){
-    console.log("I am a async functions !!!");
+   // let f1=await fs.promises.readFile("./f1.txt"); 
+    console.log("I am a async functions");
 }
 callMe();
