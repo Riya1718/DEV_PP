@@ -50,9 +50,9 @@
   background: #34495e !important;
 }
 .ticket-actions {
+  height: 50%;
   min-height: 50%;
   min-width: 10%;
-  height: 50%;
   background: #2d3436;
   display: flex;
   justify-content: space-evenly;
@@ -70,7 +70,7 @@
   color: white;
   font-size: 1.5rem;
 }
-.close-ticket {
+.close-modal {
   /* height: 100%; */ /* width: 50%; */
   height: 100%;
   width: 50%;
@@ -91,7 +91,7 @@
 .open-modal:hover{
   background: #404549 !important;
 }
-.close-ticket:hover {
+.close-modal:hover {
   background: #404549 !important;
 }
 
@@ -165,4 +165,15 @@
 .active-filter{
   border: white 2px solid;
   transform: scale(1.2);
+}
+
+.ticket-info{
+  display: flex;
+  justify-content: space-between;
+}
+
+.fa-trash{
+  color: black;
+  margin: 5px;
+  cursor: pointer;
 }

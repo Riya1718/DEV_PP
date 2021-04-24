@@ -1,6 +1,10 @@
 const puppeteer = require("puppeteer");
 const id = "gufyaciyde@biyac.com";
 const pw = "123456";
+
+// const id = "bexinav211@astarmax.com";
+// const pw = "123456789";
+
 let tab;
 
 let challenges = require("./challenges");
