@@ -1,5 +1,4 @@
 let cellsContentDiv = document.querySelector(".cells-content");
-
 function initCells(){
     let cellsContent = "<div class='top-left-cell'></div>";
     cellsContent += "<div class='top-row'>"
@@ -38,7 +37,9 @@ function initDB(){
             let cellObject = {
                 name:name,
                 value:"",
-                formula: ""
+                formula:"",
+                childrens:[],
+                parents:[]
             }
             row.push(cellObject);
         }

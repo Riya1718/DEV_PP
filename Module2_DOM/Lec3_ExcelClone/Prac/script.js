@@ -20,9 +20,11 @@ for(let i=0;i<allCells.length;i++){
    allCells[i].addEventListener("click" , function(e){
        let rowId = Number(e.target.getAttribute("rowid"));
        let colId = Number(e.target.getAttribute("colid"));
-    //    let cellObject = db[rowId][colId];
+       let cellObject = db[rowId][colId];
        let address = String.fromCharCode(colId+65)+(rowId+1)+"";
        addressInput.value = address;
+       formulaInput.value = cellObject.formula;
+
    })
 
    allCells[i].addEventListener("blur" , function(e){
@@ -31,11 +33,32 @@ for(let i=0;i<allCells.length;i++){
        let rowId = Number(e.target.getAttribute("rowid"));
        let colId = Number(e.target.getAttribute("colid"));
        let cellObject = db[rowId][colId];
-
+                                                                        
        if(cellObject.value == cellValue){
            return;
        }
+
+       if(cellObject.formula){
+           formulaInput.value="";
+           removeFormula(cellObject);
+       }
+       
        cellObject.value = cellValue;
+       updataChildrens(cellObject);
+   })
+
+   allCells[i].addEventListener("keydown" , function(e){
+       if(e.key=="Backspace"){
+          let cell = e.target;
+          let {rowId,colId} = getRowIdColIdFromElement(cell);
+          let cellObject = db[rowId][colId];
+
+          if(cellObject.formula){
+              formulaInput.value="";
+              removeFormula(cellObject);
+              cell.textContent="";
+          }
+       }
    })
 }
 
@@ -45,11 +68,17 @@ formulaInput.addEventListener("blur" , function(e){
        let rowId = Number(lastSelectedCell.getAttribute("rowid"));
        let colId = Number(lastSelectedCell.getAttribute("colid"));
        let cellObject = db[rowId][colId];
+
+       if(cellObject.formula){
+           removeFormula(cellObject);
+       }
        
-       let computedValue = solveFormula(formula);
+       let computedValue = solveFormula(formula,cellObject);
 
        cellObject.formula = formula;
        cellObject.value = computedValue;
        lastSelectedCell.textContent = computedValue;
+       
+       updataChildrens(cellObject);
     }
 })
