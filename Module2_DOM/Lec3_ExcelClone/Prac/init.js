@@ -29,10 +29,12 @@ cellContentDiv.innerHTML = cellContent;
 }
 initCells();
 
-let db;
+let sheetsDb=[];
+let db; //active-sheet db
+let visitedCells; //active sheet k visited cells
 
 function initdb(){
-    db=[];
+    let newSheetDb=[];
     for(let i=0;i<100;i++){
         let row=[];
         for(let j=0;j<26;j++){
@@ -43,11 +45,17 @@ function initdb(){
                 value: "",
                 formula: "",
                 childrens:[],
-                parents: []
+                parents: [],
+                visited: false
             }
             row.push(cellObject);
         }
-        db.push(row);
+        newSheetDb.push(row);
     }
+    visitedCells=[];
+    db=newSheetDb;
+    sheetsDb.push({db:newSheetDb, visitedCells: visitedCells});
+   // console.log(sheetsDb);
 }
 initdb();
+

@@ -45,6 +45,14 @@ for(let i=0;i<allCells.length;i++){
        
        cellObject.value = cellValue;
        updataChildrens(cellObject);
+
+       if(cellObject.visited == true){
+           return;
+       }
+       cellObject.visited = true;
+       visitedCells.push({rowId:rowId,colId:colId});
+       console.log(sheetsDb);
+
    })
 
    allCells[i].addEventListener("keydown" , function(e){
@@ -80,5 +88,14 @@ formulaInput.addEventListener("blur" , function(e){
        lastSelectedCell.textContent = computedValue;
        
        updataChildrens(cellObject);
+
+       if(cellObject.visited == true){
+        return;
+       }
+       
+        cellObject.visited = true;
+        visitedCells.push({rowId:rowId,colId:colId});
+        console.log(sheetsDb);
+
     }
 })
