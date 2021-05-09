@@ -46,7 +46,8 @@ function initdb(){
                 formula: "",
                 childrens:[],
                 parents: [],
-                visited: false
+                visited: false,
+                fontStyle:{bold:false, italic:false, underline:false}
             }
             row.push(cellObject);
         }

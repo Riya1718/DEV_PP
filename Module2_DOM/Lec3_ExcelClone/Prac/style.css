@@ -8,16 +8,84 @@
 .menu{
     border: 1px solid;
     height: 30px;
+    display: flex;
+    background: #ecf0f1;
+}
+
+.menu div{
+    border-right: 1px solid lightgray;
+    width: 60px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.file-menu-options{
+    display: flex;  
+    height: 100%;
+    align-items: center;
 }
 
 .menu-options{
-    border: 1px solid;
-    height: 60px;
+    border: 1px solid lightgray;
+    height: 40px;
+    background: #ecf0f1;
+}
+
+.home-menu-options{
+    display: flex;  
+    height: 100%;
+    align-items: center; 
+}
+
+
+.active-menu{
+    background: white;
+    font-weight: bold; 
+}
+
+.hide{
+    display: none;
+}
+
+.font-style{
+   width: 150px;
+   height: 100%;
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
+}
+
+.font-style div {
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.font-style div:hover{
+    background: #bdc3c7;
+    opacity: 0.5;    
+}
+
+.font-style div .fas {
+}
+
+.active-font-style{
+background: #bdc3c7;
 }
 
 .address-content{
     border: 1px solid;
-    height: 30px;
+    height: 50px;
+    padding-top: 1rem;
+    padding-left: 1rem;
+    background: #ecf0f1;
 }
 
 .cells-content{
@@ -40,13 +108,13 @@
 .top-left-cell{
     width: 30px;
     height: 30px;
-    background: burlywood;
+    background: whitesmoke;
     position: absolute;
     z-index: 3;   
 }
 
 .top-row{
-    background : lightgreen;
+    background : lightgray;
     display: flex;
     position: absolute;
     top: 0px;
@@ -64,7 +132,7 @@
 }
 
 .left-col{
-    background : lightgreen;
+    background : lightgray;
     width: 30px;
     position: absolute;
     top: 30px;
@@ -129,3 +197,4 @@
     background: white;
     font-weight: bold;
 }
+

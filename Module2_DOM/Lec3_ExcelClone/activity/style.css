@@ -1,36 +1,42 @@
-*{
+* {
     box-sizing: border-box;
     margin: 0px;
     padding: 0px;
     font-family: 'Roboto', sans-serif;
 }
 
-.menu{
-    border: 1px solid;
+.menu {
+    /* border: 1px solid; */
     height: 30px;
+    display: flex;
+    background: #ecf0f1;
+    align-items: center;
+    border-bottom: 1px solid lightgray;
 }
 
-.menu-options{
-    border: 1px solid;
+.menu-options {
+    /* border: 1px solid; */
     height: 60px;
 }
 
-.address-content{
+.address-content {
     border: 1px solid;
     height: 30px;
-
 }
 
-.cells-content{
-    height: calc(100vh - 150px);
-    /* background: lightblue; */
+.cells-content {
+    height: calc( 100vh - 150px);
+    /* background: lightgreen; */
     overflow: auto;
     position: relative;
 }
 
-.sheets{
-    border: 1px solid;
+.sheets {
+    /* border: 1px solid; */
     height: 30px;
+    display: flex;
+    background: #ecf0f1;
+    align-items: center;
 }
 
 .row {
@@ -41,6 +47,7 @@
     border: 1px solid;
     min-height: 30px;
     min-width: 70px;
+    max-width: 70px;
 }
 
 .top-left-cell {
@@ -93,14 +100,6 @@
     left: 30px;
 }
 
-.sheets {
-    /* border: 1px solid; */
-    height: 30px;
-    display: flex;
-    background: #ecf0f1;
-    align-items: center;
-}
-
 .add-sheet {
     width: 30px;
     /* background: aqua; */
@@ -135,4 +134,70 @@
 .active-sheet {
     background: white;
     font-weight: bold;
+}
+
+.menu div {
+    width: 60px;
+    /* background: aquamarine; */
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid lightgray;
+    cursor: pointer;
+}
+
+.file {
+}
+
+.home {
+}
+
+.file-menu-options {
+}
+
+.home-menu-options {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.active-menu {
+    background: white;
+    font-weight: bold;
+}
+
+.hide {
+    display: none;
+}
+
+.font-style {
+    display: flex;
+    width: 150px;
+    height: 100%;
+    justify-content: space-around;
+    align-items: center;
+    border-right: 1px solid lightgray;
+}
+
+.font-style div {
+    cursor: pointer;
+    height: 25px;
+    width: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.font-style div:hover{
+    background: #bdc3c7;
+    opacity: 0.5;    
+}
+
+.font-style div .fas {
+}
+
+.active-font-style{
+background: #bdc3c7;
 }
