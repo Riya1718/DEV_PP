@@ -20,8 +20,22 @@ let colId;
 
 for (let i = 0; i < allCells.length; i++) {
   allCells[i].addEventListener("click", function (e) {
+    // add active class
+    if (lastSelectedCell) {
+      lastSelectedCell.classList.remove("active-cell");
+      document
+        .querySelector(`div[trid="${colId}"]`)
+        .classList.remove("cell-selected");
+      document
+        .querySelector(`div[lcid="${rowId}"]`)
+        .classList.remove("cell-selected");
+    }
     rowId = Number(e.target.getAttribute("rowid"));
     colId = Number(e.target.getAttribute("colid"));
+    e.target.classList.add("active-cell");
+    document.querySelector(`div[trid="${colId}"]`).classList.add("cell-selected");
+    document.querySelector(`div[lcid="${rowId}"]`).classList.add("cell-selected");
+
     let cellObject = db[rowId][colId];
     let address = String.fromCharCode(65 + colId) + (rowId + 1) + "";
     addressInput.value = address;
@@ -39,6 +53,14 @@ for (let i = 0; i < allCells.length; i++) {
       ? document.querySelector(".underline").classList.add("active-font-style")
       : document.querySelector(".underline").classList.remove("active-font-style");
 
+      // alignment set hojae
+      // 1. remove already selected text align if exist
+      if(lastSelectedCell){
+        document.querySelector(".font-alignments .active-font-style").classList.remove("active-font-style");
+      }
+      // 2. set active text align for the selected cell
+    let textAlignment = cellObject.textAlign;
+    document.querySelector(`.${textAlignment}`).classList.add("active-font-style");
   });
 
   allCells[i].addEventListener("blur", function (e) {
