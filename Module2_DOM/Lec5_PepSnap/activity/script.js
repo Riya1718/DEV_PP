@@ -74,15 +74,22 @@ let currZoom = 1;
 function saveVideoToFs() {
   console.log("Saving Video");
   // file object in recordedData
-  let videoUrl = URL.createObjectURL(recordedData); // convert Blob object into Blob Url
-  console.log(videoUrl);
+  let blob = new Blob( [recordedData] , {type:"video/mp4"} );
 
-  let aTag = document.createElement("a");
-  aTag.download = "video.mp4";
-  aTag.href = videoUrl;
+  
+  let iv = setInterval( function(){
+    if(db){
+      saveMedia("video" , blob);
+      clearInterval(iv);
+    }
+  }  , 100 );
 
-  console.log(aTag);
-  aTag.click(); // download start for video
+  // let aTag = document.createElement("a");
+  // aTag.download = "video.mp4";
+  // aTag.href = videoUrl;
+
+  // console.log(aTag);
+  // aTag.click(); // download start for video
 }
 
 function capturePhotos() {
@@ -107,10 +114,18 @@ function capturePhotos() {
 
   ctx.drawImage(videoPlayer, 0, 0);
   let imageUrl = canvas.toDataURL("image/jpg"); //canvas object => file url String
-
-
-  let aTag = document.createElement("a");
-  aTag.download = "photo.jpg";
-  aTag.href = imageUrl;
-  aTag.click();
+  
+  
+  let iv = setInterval( function(){
+    if(db){
+      saveMedia("image" , imageUrl);
+      clearInterval(iv);
+    }
+  }  , 100 );
+  
+  //skip downloading part for now
+  // let aTag = document.createElement("a");
+  // aTag.download = "photo.jpg";
+  // aTag.href = imageUrl;
+  // aTag.click();
 }
