@@ -24,9 +24,20 @@ class App extends Component {
     })
   }
 
+  setMovies = async(newMovieName) =>{
+    let data = await axios.get(API_URL + "/search/movie", {
+      params: { api_key: API_KEY, page: 1, query: newMovieName },
+    });
+    let moviesData = data.data.results.slice(0,10);
+    this.setState({
+      moviesData:moviesData,
+      currentMovie:newMovieName
+    })
+  }
+
   render() {
     return (<div className="App">
-        <Header></Header>
+        <Header setMovies = {this.setMovies}></Header>
         <Movies movies={this.state.moviesData}></Movies>
     </div>);
   }
