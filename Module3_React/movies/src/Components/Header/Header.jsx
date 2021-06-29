@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from "react-router-dom";
 import "./Header.css";
 
     class Header extends Component {
@@ -38,6 +39,16 @@ import "./Header.css";
                 onChange={this.handleOnChange}
                 onKeyPress={this.handleKeyPress}
               />
+            </div>
+
+            <div className="Header-Links">
+              <div className="Header-Link">
+                <Link to="/">Home</Link>
+              </div>
+
+              <div className="Header-Link">
+                <Link to="/fav">Favourites</Link>
+              </div>
             </div>
           </div>
         );
