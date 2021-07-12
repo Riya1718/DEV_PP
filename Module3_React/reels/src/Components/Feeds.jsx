@@ -4,11 +4,14 @@ import { Button } from "@material-ui/core";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import { firebaseDB, firebaseStorage } from "../config/firebase";
 import { uuid } from 'uuidv4';
+import VideoPost from "./VideoPost";
 
 const Feeds = (props) => {
    
     const {signOut} = useContext(AuthContext);
     const[videoFile , setVideoFile] = useState(null);
+    const [posts, setPosts] = useState([]);
+
     const {currentUser} = useContext(AuthContext);
 
     const handleLogout = async(e) => {
@@ -64,27 +67,80 @@ const Feeds = (props) => {
           } catch (err) {}
         };
 
-    return(
-    <div>
-        <h1>Feeds</h1>
-        <button onClick={handleLogout}>Logout</button>
-        <div className="uploadVideo">
-        <div>
-          <input type="file" onChange={handleInputFile} />
-          <label>
-            <Button
-              onClick={handleUploadFile}
-              variant="contained"
-              color="secondary"
-              startIcon={<PhotoCamera></PhotoCamera>}
-            >
-              Upload
-            </Button>
-          </label>
-        </div>
-      </div>
-    </div>  
-    )
-}
- 
-export default Feeds;
+        let conditionObject = {
+          root: null, //observe from whole page
+          threshold: "0.8", //80%
+        };
+      
+        function cb(entries) {
+          console.log(entries);
+          entries.forEach((entry) => {
+            let child = entry.target.children[0];
+            // play(); => async
+            // pause(); => sync
+      
+            child.play().then(function () {
+              if (entry.isIntersecting == false) {
+                child.pause();
+              }
+            });
+          });
+        }
+      
+        useEffect(() => {
+          // code which will run when the component loads
+          let observerObject = new IntersectionObserver(cb, conditionObject);
+          let elements = document.querySelectorAll(".video-container");
+      
+          elements.forEach((el) => {
+            observerObject.observe(el); //Intersection Observer starts observing each video element
+          });
+        }, [posts]);
+      
+        useEffect(() => {
+          //GET ALL THE POSTS
+          // get all documents of a collection in firebase
+          //   db.collection('documents')
+          // .get()
+          // .then(querySnapshot => {
+          //   const documents = querySnapshot.docs.map(doc => doc.data())
+          //   // do something with documents
+          firebaseDB
+            .collection("posts")
+            .get()
+            .then((snapshot) => {
+              let allPosts = snapshot.docs.map((doc) => {
+                return doc.data();
+              });
+              setPosts(allPosts);
+            });
+        }, []); //component did mount !!
+      
+        return (
+          <div>
+            {/* <button onClick={handleLogout}>Logout</button> */}
+            <div className="uploadVideo">
+              <div>
+                <input type="file" onChange={handleInputFile} />
+                <label>
+                  <Button
+                    onClick={handleUploadFile}
+                    variant="contained"
+                    color="secondary"
+                    startIcon={<PhotoCamera></PhotoCamera>}
+                  >
+                    Upload
+                  </Button>
+                </label>
+              </div>
+            </div>
+            <div className="feeds-video-list">
+              {posts.map((postObj) => {
+                return <VideoPost key={postObj.pid} postObj={postObj}></VideoPost>;
+              })}
+            </div>
+          </div>
+        );
+      };
+      
+      export default Feeds;
