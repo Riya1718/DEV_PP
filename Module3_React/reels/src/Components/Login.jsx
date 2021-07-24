@@ -85,6 +85,7 @@ const Login = (props) => {
                   value={email}
                   size="small"
                   onChange={(e) => setEmail(e.target.value)}
+                  className = {classes.mb}
                 ></TextField>
                 <TextField
                   label="Password"
@@ -109,11 +110,9 @@ const Login = (props) => {
             <Card variant="outlined" className={classes.padding}>
               <Typography style={{ textAlign: "center" }}>
                 Don't have an account ?
-                <Button variant="contained" color="primary">
-                  <Link style={{ color: "white" }} to="/signup">
-                    SignUp
-                  </Link>
-                </Button>
+                <Button color="primary" href = "/signup">
+                Sign Up
+              </Button>
               </Typography>
             </Card>
           </Grid>
