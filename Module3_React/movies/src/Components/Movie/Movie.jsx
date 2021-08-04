@@ -3,6 +3,8 @@ import { API_KEY, API_URL, IMAGE_URL } from "../../API/secrets";
 import { Link } from "react-router-dom";
 import "./Movie.css";
 import axios from "axios";
+// import 'font-awesome/css/font-awesome.min.css';
+
 class Movie extends Component {
   state = {
     detailedMovieObj: {},
@@ -30,6 +32,10 @@ class Movie extends Component {
     return (
       <div className="movie-item">
         <div className="movie-poster">
+         {/* <button className="like">
+         <i class="far fa-heart"></i>
+         </button>
+          */}
           <Link to={{ pathname: "/moviepage", state: this.state.detailedMovieObj }}>
             <img src={posterPath} alt="" />
           </Link>

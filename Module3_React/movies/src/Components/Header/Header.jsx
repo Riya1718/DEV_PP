@@ -46,9 +46,9 @@ import "./Header.css";
                 <Link to="/">Home</Link>
               </div>
 
-              <div className="Header-Link">
+              {/* <div className="Header-Link">
                 <Link to="/fav">Favourites</Link>
-              </div>
+              </div> */}
             </div>
           </div>
         );
