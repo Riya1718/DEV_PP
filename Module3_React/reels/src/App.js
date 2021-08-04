@@ -1,44 +1,24 @@
-import React, { useContext, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Redirect,
-  Route,
-  Switch,
-} from "react-router-dom";
-import Header from "./Components/Header";
-import Feeds from "./Components/Feeds";
-import Login from "./Components/Login";
-import Profile from "./Components/Profile";
-import SignUp from "./Components/SignUp";
-import { AuthContext, AuthProvider } from "./context/AuthProvider";
 
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { AuthProvider } from "./Context/AuthContext"
+import Login from "./Components/Login"
+import Signup from './Components/Signup'
+import Feed from './Components/Feed';
+import PrivateRoute from './Components/PrivateRoute';
+import Profile from './Homework/Profile'
 function App() {
+  console.log(Feed);
   return (
-    <AuthProvider>
-      <Router>
-        <div className="App">
-          <Header></Header>
-          <Switch>
-            <Route path="/login" component={Login} exact></Route>
-            <Route path="/signup" component={SignUp} exact></Route>
-            <PrivateRoute path="/" component={Feeds}></PrivateRoute>
-            <PrivateRoute path="/profile" component={Profile}></PrivateRoute>
-          </Switch>
-        </div>
-      </Router>
-    </AuthProvider>
-  );
-}
-
-function PrivateRoute(props) {
-  let {component, path } = props;
-  // Feeds ?? loggedIn and path="/"
-  let { currentUser } = useContext(AuthContext);
-
-  return currentUser ? (
-    <Route path={path} component={component}></Route>
-  ) : (
-    <Redirect to="/login"></Redirect>
+    <Router>
+          <AuthProvider>
+            <Switch>
+              <PrivateRoute exact path="/" component={Feed}/>
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/signup" component={Signup} />
+              <Route exact path='/profile/:id' component={Profile} />
+            </Switch>
+          </AuthProvider>
+        </Router>
   );
 }
 

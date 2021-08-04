@@ -20,6 +20,32 @@ const VideoPost = (props) => {
   let [commentList, setCommentList] = useState([]);
   // { comment , profilePhotoUrl }
 
+  const addCommentToCommentList = async (e)=>{
+    let profilePic;
+    // when commenting user and post author user is same
+    if(currentUser.uid == user.userId){
+      profilePic = user.profileImageUrl;
+    }
+    else{
+      let doc = await firebaseDB.collection("users").doc(currentUser.uid).get();
+      let user = doc.data();
+      profilePic = user.profileImageUrl;
+    }
+    let newCommentList = [...commentList , {
+      profilePic: profilePic,
+      comment: comment,
+    }]
+
+    // add comments in firebase
+    let postObject = props.postObj;
+    postObject.comments.push({ uid:currentUser.uid , comment: comment });
+    // it will set a new post object with updated comments in firebase DB
+    await firebaseDB.collection("posts").doc(postObject.pid).set(postObject);
+    setCommentList(newCommentList);
+    setComment("");
+  }
+
+
   useEffect(async () => {
     console.log(props);
     let uid = props.postObj.uid;
@@ -56,7 +82,7 @@ const VideoPost = (props) => {
           label="Add a comment"
           size="small"
         ></TextField>
-        <Button variant="contained" color="secondary">
+        <Button variant="contained" color="secondary" onClick={addCommentToCommentList}>
           Post
         </Button>
 
@@ -74,15 +100,25 @@ const VideoPost = (props) => {
 };
 
 function Video(props) {
+  const handleAutoScroll = (e) => {
+    console.log(e);
+    let next = ReactDOM.findDOMNode(e.target).parentNode.parentNode.parentNode
+      .nextSibling;
+    console.log(next);
+    if (next) {
+      next.scrollIntoView({ behaviour: "smooth" });
+      e.target.muted = "true";
+    }
+  };
   return (
     <video
       style={{
-        height: "80%",
+        height: " 100%",
         width: "100%",
       }}
       muted={true}
-      loop={true}
-      controls
+      onEnded={handleAutoScroll}
+      onClick={(e) => {}}
     >
       <source src={props.src} type="video/mp4"></source>
     </video>
